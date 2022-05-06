@@ -2,17 +2,16 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-        <div className="nav-header">
-            <h2>Minna blogs</h2>
-        </div>
-        <div className="nav-links">
-            <ul className="links">
-                <li>Login</li>
-                <li>Home</li>
-            </ul>
-        </div>
-    </nav>
+    <div className="navbar">
+      <div className="narbar-header">
+        <h1>Minna-Blogs</h1>
+      </div>
+      <div className="nav-links">
+        <a href="#home" className="active nav-link">Home</a>
+        <a href="#contact" className="nav-link">Login</a>
+      </div>
+    </div>
+
   )
 }
 

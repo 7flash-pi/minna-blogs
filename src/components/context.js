@@ -5,8 +5,11 @@ const AppContext=React.createContext()
 
 const AppProvider=({children})=>
 {
-    const {data,setData}=useState('hello');
-    return<AppContext.Provider value={{data}}>
+    const [blogs,setBlogs]=useState([]);
+    return<AppContext.Provider value={{
+        blogs,
+        setBlogs
+    }}>
             {children}
         </AppContext.Provider>
 }
@@ -15,4 +18,4 @@ export const useGlobalContext=()=>
 {
     return useContext(AppContext);
 }
-export { AppContext,AppProvider};
+export { AppProvider};
