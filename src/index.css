@@ -132,7 +132,82 @@ li{
     line-height: 1.5;
     word-spacing: 2px;
 }
+.login-overlay
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    transition: var(--transition);
+    visibility: hidden;
+    z-index: -1;
+}
+.show-login
+{
+    visibility: visible;
+    z-index:10;
+}
+.form-container {
+    margin: 10% auto;
+    background-color:var(--bgpink1);
+    border-radius: 5px;
+    width: 50%;
+    height: 15em;
+    text-align: center;
+    display: flex;
+    place-items: center;
+    flex-direction: column;
+    box-shadow: 0 1px 5px 1px var(--bgdark);
 
+}
+input[type="text"],
+input[type="password"] {
+    margin-top: 1em;
+    height: 25px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
+}
+
+input[type="submit"] {
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    background: var(--bgdark);
+    border: 1px solid #01d28e;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+input[type="submit"]:hover {
+    background: var(--bgpink1);
+    color:#000;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    background-color: white;
+    padding: 2rem;
+}
+
+.list-container {
+    display: flex;
+}
+
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px;
+}
 
 @media only screen and (max-width: 600px) {
 
@@ -150,5 +225,18 @@ li{
         resize: none;
         border-radius: 5px;
     }
+    .form-container {
+        margin: 20% auto;
+        background-color: var(--bgpink2);
+        border-radius: 5px;
+        width: 70%;
+        height: 15em;
+        text-align: center;
+        display: flex;
+        place-items: center;
+        flex-direction: column;
+        box-shadow: 0 1px 5px 1px var(--bgdark);
+    }
+
 }
 
