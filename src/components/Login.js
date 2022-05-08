@@ -2,7 +2,7 @@ import React ,{ useState } from 'react'
 import { useGlobalContext } from './context'
 
 const Login = () => {
-    const {loginFormActive,user,getUserData,postUser}=useGlobalContext();
+    const {loginFormActive,closeLoginForm,user,getUserData,postUser}=useGlobalContext();
     
         
   return (
@@ -23,7 +23,7 @@ const Login = () => {
                     <input type="password" value={user.password} name="password" onChange={getUserData} />
                 </div>
                 <div className="button-container">
-                    <input type="submit" />
+                    <input type="submit" onClick={closeLoginForm} />
                 </div>
             </form>
         </div>

@@ -13,7 +13,7 @@ const AppProvider=({children})=>
         time:''
         });
 
-    const[loginFormActive,setLoginFormActive]=useState(true);
+    const[loginFormActive,setLoginFormActive]=useState(false);
     const[user,setUser]=useState({
         username:"",
         password:"",
@@ -52,8 +52,7 @@ const postUser=async(e)=>{
         password:password
    
     });
-        closeLoginForm();
-        setUser({
+    setUser({
         username:"",
         password:""
     })
@@ -62,6 +61,7 @@ const postUser=async(e)=>{
 const postData=async(e)=>{
     const {blog,category}=blogs;
     e.preventDefault();
+    if(blog && category){
     set(ref(database, 'blogs/' + new Date().getTime().toString()), {
       blog:blog,
       category:category,
@@ -72,11 +72,13 @@ const postData=async(e)=>{
   category:"",
   blog:""
 })
+    }
   }
 
 
-const closeLoginForm=()=>{
-        setTimeout(()=>setLoginFormActive(false),3000);
+const closeLoginForm=(e)=>{
+        e.preventDefault();
+       setLoginFormActive(false);
 }
 
 const openLoginForm=()=>{
