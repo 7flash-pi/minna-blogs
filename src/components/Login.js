@@ -1,16 +1,15 @@
-import React ,{ useState } from 'react'
-import { useGlobalContext } from './context'
+import React  from 'react'
+import { useGlobalContext } from './context';
+import { Link } from "react-router-dom";
 
 const Login = () => {
-    const {loginFormActive,closeLoginForm,user,getUserData,postUser}=useGlobalContext();
+    const {user,getUserData,postUser}=useGlobalContext();
+
+   
     
         
   return (
-    <div className= {
-        `${
-             loginFormActive ? 'login-overlay show-login' : 'login-overlay'
-        }`
-    }>
+    
         <div className="form-container">
 
            <form onSubmit={postUser}>
@@ -23,11 +22,16 @@ const Login = () => {
                     <input type="password" value={user.password} name="password" onChange={getUserData} />
                 </div>
                 <div className="button-container">
-                    <input type="submit" onClick={closeLoginForm} />
+                    <input type="submit"  />
+                    
                 </div>
+                <p><Link style={{
+                    marginTop:'1rem',
+                    textDecorationColor: '#fff',
+                    color: '#000'
+                }}to="/">Back to Home</Link> </p>
             </form>
         </div>
-    </div>
   )
 }
 

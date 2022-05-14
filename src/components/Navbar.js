@@ -1,21 +1,23 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import { useGlobalContext } from './context';
 
-const Navbar = () => {
-  const { openLoginForm }=useGlobalContext();
 
-  const handleLogin=(e)=>
-  {
-    openLoginForm()
-  }
+const Navbar = () => {
+
+  const {setIsLogin,isLogin,userid,getUser}=useGlobalContext();
+  getUser();
+ 
+
+
   return (
     <div className="navbar">
       <div className="narbar-header">
         <h1>Minna-Blogs</h1>
       </div>
       <div className="nav-links">
-        <a className="active nav-link">Home</a>
-        <a href="#contact" className="nav-link"  value="Login"onClick={handleLogin}>Login</a>
+        <Link  className='active nav-link' to="/">Home</Link> 
+        <Link  className='nav-link' to="/login">login</Link>
       </div>
     </div>
 

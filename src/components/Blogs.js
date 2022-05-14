@@ -4,10 +4,10 @@ import { database } from './firebase'
 
 const Blogs = () => {
   
+
   
   return (
     <div className="blogs">
-      {console.log(retriveBlog())}
             <p className='category'>Sports</p>
            <p className='blog-time'> 5 May 11:41PM</p>
             <p className='blog info'>Lorem Ipsum is simply dummy text of the printing and 

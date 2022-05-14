@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { useState} from "react";
 import {  ref, set } from "firebase/database";
-import { database } from './firebase'
+import { database ,db} from './firebase';
+import { collection, addDoc , getDocs} from "firebase/firestore"; 
+
+
 
 const AppContext=React.createContext()
 
@@ -13,11 +16,13 @@ const AppProvider=({children})=>
         time:''
         });
 
-    const[loginFormActive,setLoginFormActive]=useState(false);
     const[user,setUser]=useState({
         username:"",
         password:"",
         });
+
+    const [userid,setUserID]=useState('');
+    const [islogin,setIsLogin]=useState('false');
     
     const getUserData=(e)=> 
      {
@@ -44,19 +49,6 @@ const AppProvider=({children})=>
     }
 const currTime=currentTime();
 
-const postUser=async(e)=>{
-        const {username,password}=user;
-        e.preventDefault();
-        set(ref(database, 'user/' + new Date().getTime().toString()), {
-        username:username,
-        password:password
-   
-    });
-    setUser({
-        username:"",
-        password:""
-    })
-}
 
 const postData=async(e)=>{
     const {blog,category}=blogs;
@@ -68,34 +60,61 @@ const postData=async(e)=>{
       time:currTime
    
   });
-  setBlogs({
-  category:"",
-  blog:""
-})
+        setBlogs({
+            category:"",
+            blog:""
+        })
+    
     }
-  }
-
-
-const closeLoginForm=(e)=>{
-        e.preventDefault();
-       setLoginFormActive(false);
 }
 
-const openLoginForm=()=>{
-        setLoginFormActive(true);
+const postUser=async(e)=>{
+            e.preventDefault();
+            const {username,password}=user;
+            try {
+                const docRef = await addDoc(collection(db, "users"), {
+            username:username,
+            password:password
+                });
+            setUserID(docRef.id);
+                } 
+                catch (e) {
+                    console.error("Error adding document: ", e);
+        }
+        
+    setUser({
+        username:"",
+        password:""
+    })
+    setIsLogin(true);
 }
+
+const getUser=async()=>{
+    const querySnapshot = await getDocs(collection(db, "users"));
+
+    querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${doc.data()}`);
+});
+
+}
+
+
+
+
+
     
     return<AppContext.Provider value={{
         blogs,
         setBlogs,
         getBlogData,
         currentTime,
-        loginFormActive,
-        closeLoginForm,
-        openLoginForm,
         postData,
         user,
-        getUserData
+        getUserData,
+        postUser,
+        getUser,
+        setIsLogin,
+        islogin
     }}>
             {children}
         </AppContext.Provider>
