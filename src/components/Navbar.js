@@ -5,10 +5,9 @@ import { useGlobalContext } from './context';
 
 const Navbar = () => {
 
-  const {setIsLogin,isLogin,userid,getUser}=useGlobalContext();
-  getUser();
+  const {isLogin,getUser}=useGlobalContext();
+  
  
-
 
   return (
     <div className="navbar">
@@ -17,7 +16,7 @@ const Navbar = () => {
       </div>
       <div className="nav-links">
         <Link  className='active nav-link' to="/">Home</Link> 
-        <Link  className='nav-link' to="/login">login</Link>
+        <Link  className='nav-link' to="/login">Login</Link>
       </div>
     </div>
 

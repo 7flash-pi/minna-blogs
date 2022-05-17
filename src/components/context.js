@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useState} from "react";
 import {  ref, set } from "firebase/database";
 import { database ,db} from './firebase';
-import { collection, addDoc , getDocs} from "firebase/firestore"; 
+import { collection, addDoc ,query,getDocs,doc} from "firebase/firestore"; 
 
 
 
@@ -21,8 +21,8 @@ const AppProvider=({children})=>
         password:"",
         });
 
-    const [userid,setUserID]=useState('');
-    const [islogin,setIsLogin]=useState('false');
+    const [userid,setUserId]=useState('');
+    const [islogin,setIsLogin]=useState('');
     
     const getUserData=(e)=> 
      {
@@ -54,16 +54,23 @@ const postData=async(e)=>{
     const {blog,category}=blogs;
     e.preventDefault();
     if(blog && category){
-    set(ref(database, 'blogs/' + new Date().getTime().toString()), {
-      blog:blog,
-      category:category,
-      time:currTime
-   
-  });
-        setBlogs({
-            category:"",
-            blog:""
-        })
+         try {
+                const docRef = await addDoc(collection(db, "blogs"), {
+            category:category,
+            blog:blog,
+            time:currTime
+                });
+            
+                } 
+                catch (e) {
+                    console.error("Error adding document: ", e);
+        }
+        
+    setBlogs({
+        blog:"",
+        category:""
+    })
+    
     
     }
 }
@@ -76,7 +83,7 @@ const postUser=async(e)=>{
             username:username,
             password:password
                 });
-            setUserID(docRef.id);
+            setUserId(docRef.id);
                 } 
                 catch (e) {
                     console.error("Error adding document: ", e);
@@ -86,17 +93,10 @@ const postUser=async(e)=>{
         username:"",
         password:""
     })
-    setIsLogin(true);
 }
 
-const getUser=async()=>{
-    const querySnapshot = await getDocs(collection(db, "users"));
 
-    querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`);
-});
 
-}
 
 
 
@@ -112,9 +112,11 @@ const getUser=async()=>{
         user,
         getUserData,
         postUser,
-        getUser,
         setIsLogin,
-        islogin
+        islogin,
+        setUserId,
+        userid,
+
     }}>
             {children}
         </AppContext.Provider>
